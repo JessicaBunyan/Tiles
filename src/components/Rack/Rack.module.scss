@@ -1,0 +1,15 @@
+.rack{
+
+    
+    width: 300px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    border: solid 4px white;
+
+    .remove{
+        width: 60px;
+        height: 60px;;
+        border: solid 1px black;
+    }
+}

@@ -1,0 +1,14 @@
+.tile{
+    width: 60px;
+    height: 60px;
+    background-color: tan;;
+    font-size: 2rem;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 60px;;
+
+    &.active{
+        // outline: solid 3px green;
+        box-shadow: 0 0 12px aquamarine inset;
+    }
+} 
