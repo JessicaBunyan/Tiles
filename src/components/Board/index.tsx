@@ -1,13 +1,13 @@
 import { useSelector } from "react-redux";
 import { selectActiveTile, selectErrors } from "../../selectors";
-import { boardTo2DArray } from "../../utils/boardTo2d";
+import { boardTo2DArrayTransposed } from "../../utils/boardTo2d";
 import Square from "../Square";
 import styles from "./Board.module.scss";
 
 type Props = { state: TSquareState[] };
 
 const Board = ({ state }: Props) => {
-	const data = boardTo2DArray(state);
+	const data = boardTo2DArrayTransposed(state);
 	const hasActiveTile = !!useSelector(selectActiveTile);
 
 	const errors = useSelector(selectErrors);

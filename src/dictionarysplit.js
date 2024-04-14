@@ -13,7 +13,7 @@ async function read() {
 	for await (const line of rl) {
 		const word = line.split("\t")[0].trim();
 		console.log("word", word);
-		if (word.length > 5 || word.length < 4 || !dict.has(word)) {
+		if (word.length > 5 || word.length < 5 || !dict.has(word)) {
 			console.log("skipping");
 			continue;
 		}

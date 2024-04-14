@@ -1,0 +1,9 @@
+todo.txt
+
+address the TODOs
+
+Disable islands? - could place a starting letter maybe? unsure
+
+Reset button
+Show green once correct words are in, not just highlight issues at the end 
+show what words you used at the end - compare grids / words /solution with others

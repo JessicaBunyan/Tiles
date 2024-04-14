@@ -1,6 +1,6 @@
 type Props = { letter: string };
 
-type TSquareDef = "" | "#" | "*";
+type TSquareDef = "" | "#";
 
 type TLetterDef =
 	| "A"
@@ -36,6 +36,8 @@ type TTileId = `${TLetterDef}${TIdPortion}`;
 type TBoardDef = TSquareDef[];
 type TBoardState = TSquareState[];
 
+type TRenderedBoardState = Array<TLetterDef | "" | "#">;
+
 type TRackDef = TLetterDef[];
 
 type TFoundWord = {
@@ -52,4 +54,9 @@ type TBoardDescription = {
 type TGameDef = {
 	boardDef: TBoardDef;
 	rackDef: TRackDef;
+};
+
+type TExtendedGameDef = TGameDef & {
+	sourceWords: string[];
+	bonusLetters: string[];
 };
