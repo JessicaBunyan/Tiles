@@ -1,0 +1,13 @@
+const zDictionary = ["size",
+"zone",
+"zoom",
+"zero",
+"jazz",
+"jazz",
+"sizes",
+"crazy",
+"prize",
+"pizza",
+"pizza",
+"plaza",
+"sized"]; export default zDictionary;

@@ -1,0 +1,1 @@
+const gDictionary = ["aargh"]; export default gDictionary;

@@ -6,6 +6,7 @@ import { initialiseRack } from "../../rackSlice";
 import { selectBoardState } from "../../selectors";
 import Board from "../Board";
 import Rack from "../Rack";
+import { newGame } from "../../utils/newGame";
 
 const game: TGameDef = {
 	boardDef: ["", "", "", "#", "", "", "", "", "", "#", "", "", "", "", "", "", "", "", "", "", "", "#", "", "", ""],
@@ -21,6 +22,11 @@ const Game = () => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
+		console.log("CREATING GAME");
+		const game = newGame({ date: new Date(), keyLetter: "E", density: 0.5 });
+		console.log("GAME CREATED");
+		console.log(game);
+
 		dispatch(initialiseBoard(game.boardDef));
 		dispatch(initialiseRack(game.rackDef));
 	}, [dispatch]);
