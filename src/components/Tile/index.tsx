@@ -2,7 +2,6 @@ import cx from "classnames";
 import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setActiveTile } from "../../activeTileSlice";
-import { setErrors } from "../../boardSlice";
 import { selectActiveTile, selectRackDef } from "../../selectors";
 import styles from "./Tile.module.scss";
 
@@ -16,9 +15,9 @@ const Tile = ({ id }: Props) => {
 	const isActive = activeTile === id;
 
 	const onClick = useCallback(() => {
-		dispatch(setErrors([]));
+		// dispatch(clearErrors());
 		dispatch(setActiveTile(id));
-		dispatch(setErrors([]));
+		// dispatch(clearErrors());
 	}, [id, dispatch]);
 
 	return (

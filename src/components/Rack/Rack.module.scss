@@ -1,15 +1,28 @@
 .rack{
 
     
-    width: 300px;
+    width: 80%;
     display: flex;
     flex-wrap: wrap;
-    gap: 4px;
-    border: solid 4px white;
+    justify-content: center;
+    gap: var(--tile-gap);
+    border: solid 4px var(--bg-main);
+    // height: calc(var(--tile-max-size) * 2 + var(--tile-gap));
 
     .remove{
-        width: 60px;
-        height: 60px;;
-        border: solid 1px black;
+        &.hide{
+            opacity: 0;
+        }
+        background: var(--bg-secondary);
+        width: 100%;
+        height: var(--tile-max-size);;
+        border: solid 1px var(--bg-secondary);
+        margin-bottom: 1rem;;// TODO this isn't flexible with the other flex things (board/rack etc)
+        svg{
+            fill: var(--board);;
+            height: 90%;;
+            width: var(--tile-max-size);
+            margin: 0 auto;
+        }
     }
 }

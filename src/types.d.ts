@@ -30,25 +30,40 @@ type TLetterDef =
 	| "Y"
 	| "Z";
 type TSquareState = TSquareDef | number;
+type TRenderedSquareState = TLetterDef | "#" | "";
 
 type TIdPortion = "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8";
 type TTileId = `${TLetterDef}${TIdPortion}`;
 type TBoardDef = TSquareDef[];
 type TBoardState = TSquareState[];
 
-type TRenderedBoardState = Array<TLetterDef | "" | "#">;
+type TRenderedBoardState = TRenderedSquareState[];
 
 type TRackDef = TLetterDef[];
 
 type TFoundWord = {
 	direction: "H" | "V";
 	word: string;
-	pos: number[];
+	pos: XY;
 };
 
-type TBoardDescription = {
-	words: TFoundWord[];
-	singletons: TFoundWord[];
+type TGameValidity = {
+	isValid: boolean;
+	errors: TErrorInfo;
+	validWords: TFoundWord[];
+};
+
+type TErrorInfo = {
+	count: number;
+	invalidWords: TFoundWord[];
+	islands: XY[];
+};
+
+type TFeedbackIndicator = {
+	position: XY;
+	width: number;
+	height: number;
+	type: "ISLAND" | "INVALID_WORD" | "VALID_WORD";
 };
 
 type TGameDef = {
@@ -60,3 +75,5 @@ type TExtendedGameDef = TGameDef & {
 	sourceWords: string[];
 	bonusLetters: string[];
 };
+
+type XY = [number, number];

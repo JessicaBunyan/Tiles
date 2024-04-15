@@ -1,0 +1,11 @@
+.rackControls{
+
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: row;
+    height: var(--tile-max-size);
+    gap: var(--tile-gap);
+    width: 80%;
+    // background-color: blue;
+
+}

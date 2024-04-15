@@ -1,9 +1,36 @@
+:root {
+	--green: #198754;
+	--bg-main: #282828;
+	--bg-secondary: #32302f;
+	--text: #ddc7a1;
+	--board: #777;
+	/* --grid: #555; */
+	--grid: var(--bg-main);
+	--tile-bg: rgb(227, 207, 170);
+	--tile-text: var(--bg-main);
+
+	--tile-max-size: 60px;
+	--tile-gap: 6px;
+}
+
+html {
+	height: 100vh;
+	width: 100vw;
+	display: block;
+	position: relative;
+}
+
 body {
+	display: block;
+	position: relative;
 	margin: 0;
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
 		"Droid Sans", "Helvetica Neue", sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+
+	color: var(--text);
+	background: var(--bg-main);
 }
 
 code {
@@ -13,6 +40,17 @@ code {
 #root {
 	margin: 1rem auto;
 	width: 50vw;
+}
+
+#game {
+	/* width: 320px; */
+	height: 80vh;
+	text-align: center;
+	margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
 }
 
 @media screen and (max-width: 600px) {

@@ -1,15 +1,23 @@
 .square{
-    width: 60px;
-    height: 60px;
-    background-color: white;;
-    border: solid 1px grey;
+    width: var(--tile-max-size);
+    height: var(--tile-max-size);
+    background-color: var(--board);;
+    border: solid 1px var(--grid);
     font-size: 2rem;
     padding: 0;
-
+    
     &.blocked{
         background-color: black; 
         pointer-events: none;
         cursor: not-allowed;
+    }
+    
+    * {
+        color: var(--tile-text); 
+    }
+
+    &.inValidWord *{
+        color: var(--green)
     }
 
     button{

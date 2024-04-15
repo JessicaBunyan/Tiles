@@ -3,8 +3,8 @@
 }
 
 .square{
-    width: 60px;
-    height: 60px;
+    width: var(--tile-max-size);
+    height: var(--tile-max-size);
     background-color: white;;
     border: solid 1px grey;
     font-size: 2rem;

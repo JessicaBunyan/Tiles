@@ -1,11 +1,14 @@
 .tile{
-    width: 60px;
-    height: 60px;
-    background-color: tan;;
+    flex-grow: 1;
+    flex-basis: var(--tile-max-size);
+    max-width: var(--tile-max-size);
+    max-height: var(--tile-max-size);
+    background-color: var(--tile-bg);;
+    border-radius: 2px;;
     font-size: 2rem;
     text-align: center;
     vertical-align: middle;
-    line-height: 60px;;
+    line-height: var(--tile-max-size);;
 
     &.active{
         // outline: solid 3px green;

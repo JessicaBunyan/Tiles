@@ -19,6 +19,8 @@ export default function winAnimation() {
 		confetti({ ...defaults, particleCount, origin: { x: randInt(1, 3) / 10, y: Math.random() - 0.2 } });
 		confetti({ ...defaults, particleCount, origin: { x: randInt(7, 9) / 10, y: Math.random() - 0.2 } });
 	}, 250);
+
+	return interval;
 	// for (let i = 0; i < 5; i++) {
 	// 	setTimeout(() => {
 	// 		confetti({

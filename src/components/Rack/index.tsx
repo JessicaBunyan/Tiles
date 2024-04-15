@@ -1,10 +1,12 @@
 import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { clearActiveTile } from "../../activeTileSlice";
-import { removeTileFromBoard } from "../../boardSlice";
+import { removeTileFromBoard } from "../../gameSlice";
 import { selectActiveTile, selectCurrentRack } from "../../selectors";
 import Tile from "../Tile";
 import styles from "./Rack.module.scss";
+import cx from "classnames";
+import BinIcon from "../../icons/bin";
 
 const Rack = () => {
 	const rack = useSelector(selectCurrentRack);
@@ -21,14 +23,12 @@ const Rack = () => {
 
 	return (
 		<div className={styles.rack}>
+			<button onClick={reRackTile} className={cx(styles.remove, { [styles.hide]: !isActiveTileOnBoard })}>
+				<BinIcon />
+			</button>
 			{rack.map((tileId) => (
-				<Tile id={tileId} />
+				<Tile key={tileId} id={tileId} />
 			))}
-			{isActiveTileOnBoard && (
-				<button onClick={reRackTile} className={styles.remove}>
-					x
-				</button>
-			)}
 		</div>
 	);
 };

@@ -1,0 +1,10 @@
+.button{
+
+    border: solid 2px var(--board);
+    height: var(--tile-max-size);
+    border-radius: 8px;;
+    background: var(--bg-secondary);
+    color: var(--text);
+    flex-grow: 1;
+    font-size: 1.25rem;;
+} 

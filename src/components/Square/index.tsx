@@ -2,8 +2,8 @@ import cx from "classnames";
 import { ReactNode, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { clearActiveTile } from "../../activeTileSlice";
-import { placeTile, setErrors } from "../../boardSlice";
-import { selectActiveTile, selectBoardState } from "../../selectors";
+import { placeTile } from "../../gameSlice";
+import { selectActiveTile, selectBoardState, selectValidWordSquares } from "../../selectors";
 import Tile from "../Tile";
 import styles from "./Square.module.scss";
 
@@ -13,12 +13,12 @@ const Square = ({ index }: Props) => {
 	const activeTile = useSelector(selectActiveTile);
 
 	const letter = useSelector(selectBoardState)[index];
+	const validWordIndices = useSelector(selectValidWordSquares);
+	const isPartOfValidWord = validWordIndices.indexOf(index) !== -1;
 	const dispatch = useDispatch();
 
 	const onClick = useCallback(() => {
-		console.log("in onclick");
 		if (activeTile !== undefined) {
-			dispatch(setErrors([]));
 			dispatch(placeTile({ position: index, tileId: activeTile }));
 			dispatch(clearActiveTile());
 		}
@@ -33,15 +33,16 @@ const Square = ({ index }: Props) => {
 		case "#":
 			contents = null;
 			break;
-		case "*":
-			contents = null;
-			break;
 		default:
 			contents = <Tile id={letter} />;
 			break;
 	}
 
-	return <td className={cx(styles.square, { [styles.blocked]: letter === "#" })}>{contents}</td>;
+	return (
+		<td className={cx(styles.square, { [styles.blocked]: letter === "#", [styles.inValidWord]: isPartOfValidWord })}>
+			{contents}
+		</td>
+	);
 };
 
 export default Square;

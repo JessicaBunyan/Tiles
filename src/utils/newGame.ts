@@ -1,10 +1,11 @@
 import randInt from "./randInt";
-
 import { boardTo2DArray, boardTo2DArrayTransposed } from "./boardTo2d";
-import { checkErrors } from "./checkWin";
-import { getBoard } from "./getBoard";
-import { check1Islands } from "./getWords";
+import { getBoardValidity } from "./checkWin";
+import { all55CrossBoards, getBoard } from "./getBoard";
 import shuffleArray from "./shuffleArray";
+import { check1Islands } from "../gameLogic/getIslands";
+// import { notNull } from "./notNull";
+
 type TCreateGameOptions = {
 	date: Date;
 	keyLetter: TLetterDef;
@@ -24,27 +25,46 @@ export function getGameSeed(date: Date): TCreateGameOptions {
 	};
 }
 
-export function getFirst5Row(board: TBoardDef) {
+// TODO for some reason this bricks when importing... webpack/typescript i guess
+function notNull<TValue>(value: TValue | null): value is TValue {
+	return value !== null;
+}
+
+export function get5Rows(board: TBoardDef) {
 	const grid = boardTo2DArray(board);
 
-	const result = grid.findIndex((row) => {
-		return row.join("") === "";
-	});
+	const result = grid
+		.map((row, index) => {
+			return row.join("") === "" ? index : null;
+		})
+		.filter((i) => i !== null);
 
 	return result;
+}
+
+export function getFirst5Row(board: TBoardDef) {
+	const rows = get5Rows(board);
+
+	return rows[0] ?? -1;
 }
 export function getFirst5Col(board: TBoardDef) {
-	const grid = boardTo2DArrayTransposed(board);
+	const cols = get5Cols(board);
 
-	const result = grid.findIndex((row) => {
-		return row.join("") === "";
-	});
-
-	return result;
+	return cols[0] ?? -1;
 }
 
+export function get5Cols(board: TBoardDef) {
+	const grid = boardTo2DArrayTransposed(board);
+
+	const result = grid.map((row, index) => (row.join("") === "" ? index : null));
+
+	return result.filter(notNull);
+}
+
+export function has55Cross(board: TBoardDef) {}
+
 export function newGame(opts: TCreateGameOptions, depth = 0): TGameDef {
-	const boardDef = getBoard(0);
+	const boardDef = getBoard(randInt(0, all55CrossBoards.length - 1));
 
 	//TODO we're assuming a lot about the board here. Need to check this works with 4 letter starting words as well as 5., what if board shape doesn't fit those? etc.
 
@@ -63,6 +83,7 @@ export function newGame(opts: TCreateGameOptions, depth = 0): TGameDef {
 	// TODO seed this
 	const n1 = randInt(0, max - 1);
 	const w1: string = letterDict[n1].toUpperCase();
+	console.log(w1);
 	const charAtIntersection = w1.charAt(col);
 
 	console.log({ charAtIntersection });
@@ -74,6 +95,8 @@ export function newGame(opts: TCreateGameOptions, depth = 0): TGameDef {
 	console.log({ matchingWords });
 
 	const n2 = randInt(0, matchingWords.length);
+	// console.log(n2);
+	// console.log(matchingWords[n2]);
 
 	const w2: string = matchingWords[n2].toUpperCase();
 
@@ -209,9 +232,9 @@ export function isSolvable(arg: TExtendedGameDef) {
 			for (let i = 0; i < letterOrder.length; i++) {
 				solveAttempt[letterPosition[i]] = letterOrder[i] as TLetterDef;
 			}
-			const errors = checkErrors(solveAttempt);
+			const boardValidity = getBoardValidity(solveAttempt);
 
-			if (!errors.length) {
+			if (boardValidity.isValid) {
 				solved = true;
 				break outerLoop;
 			}

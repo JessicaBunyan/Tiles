@@ -1,4 +1,6 @@
-const possibleBoards = [
+import { getFirst5Col, getFirst5Row } from "./newGame";
+
+const boardPermutations = [
 	[3, 9, 21],
 	[3, 9, 15],
 	[3, 9, 15, 21],
@@ -44,25 +46,14 @@ const possibleBoards = [
 	[1, 4, 5, 18, 20, 24],
 ];
 
-function rotate90(arr: number[]) {
-	const output = arr.map((a) => {
-		const col = a % 5;
-		const row = 4 - Math.floor(a / 5);
-		return col * 5 + row;
-	});
+export const allBoards = getAllBoardPermutations(boardPermutations);
+export const all55CrossBoards = allBoards.filter(
+	(b) => getFirst5Col(squarePositionsToBoardDef(b)) !== -1 && getFirst5Row(squarePositionsToBoardDef(b)) !== -1,
+);
 
-	return output;
-}
-
-export function getBoard(seed: number): TBoardDef {
-	const b = selectBoard(seed);
-	return squarePositionsToBoardDef(b);
-}
-
-function selectBoard(seed: number) {
+function getAllBoardPermutations(boardLayouts: number[][]): number[][] {
 	const allBoards: number[][] = [];
-
-	possibleBoards.forEach((b) => {
+	boardLayouts.forEach((b) => {
 		const origString = b.sort().join("-");
 		const r1 = rotate90(b);
 		const r2 = rotate90(r1);
@@ -80,8 +71,27 @@ function selectBoard(seed: number) {
 			allBoards.push(r3);
 		}
 	});
+	return allBoards;
+}
 
-	return allBoards[seed % allBoards.length];
+function rotate90(arr: number[]) {
+	const output = arr.map((a) => {
+		const col = a % 5;
+		const row = 4 - Math.floor(a / 5);
+		return col * 5 + row;
+	});
+
+	return output;
+}
+
+export function getBoard(seed: number): TBoardDef {
+	const b = selectBoard(seed);
+	return squarePositionsToBoardDef(b);
+}
+
+function selectBoard(seed: number) {
+	//TODO include non 5cross boards
+	return all55CrossBoards[seed % allBoards.length];
 }
 
 export function squarePositionsToBoardDef(positions: number[]): TBoardDef {

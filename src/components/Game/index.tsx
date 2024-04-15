@@ -1,12 +1,13 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { initialiseBoard } from "../../boardSlice";
-import useErrors from "../../hooks/useErrors";
-import { initialiseRack } from "../../rackSlice";
-import { selectBoardState } from "../../selectors";
+import { initialiseGame } from "../../gameSlice";
+import { selectBoardState, selectHasWon } from "../../selectors";
 import { newGame } from "../../utils/newGame";
 import Board from "../Board";
+import BoardViewer from "../BoardViewer";
 import Rack from "../Rack";
+import RackControls from "../RackControls";
+import WinMessage from "../WinMessage";
 
 // nostalgia
 // eslint-disable-next-line
@@ -20,43 +21,36 @@ const game = newGame({ date: new Date(), keyLetter: "E" });
 
 const Game = () => {
 	const dispatch = useDispatch();
-	const number = Number(window.location.href.charAt(window.location.href.length - 1));
-	console.log("number", number);
+	const hasWon = useSelector(selectHasWon);
 
 	useEffect(() => {
-		console.log("CREATING GAME");
-
-		// const game = newGame({ date: new Date(), keyLetter: "E", density: 0.5 });
-		console.log("GAME CREATED");
-		console.log(game);
-
-		dispatch(initialiseBoard(game.boardDef));
-		dispatch(initialiseRack(game.rackDef));
-	}, [dispatch, number]);
+		dispatch(initialiseGame(game));
+	}, [dispatch]);
 
 	const boardState = useSelector(selectBoardState);
-	useErrors();
 
-	// if (hasWon) {
-	// 	return <>well done</>;
-	// }
+	//  TODO router
+	const boardViewer = window.location.href.split("/").pop() === "boards";
+
+	if (boardViewer) {
+		return <BoardViewer />;
+	}
+
 	return (
-		<>
+		<div id="game">
 			<h1>Make a valid scrabble board</h1>
-			<h2>Click tile then click the board to place it. Drag and drop coming soonTM</h2>
+			<h2>
+				Click tile then click the board to place it. <br /> Drag and drop coming soonTM
+			</h2>
 
-			{/* {allBoards.map((board) => (
-				<div style={{ margin: "1rem" }}>
-					<p>{board.join(",")}</p>
-					<DumbBoard state={squarePositionsToBoardDef(board)} />
-				</div>
-			))} */}
+			{hasWon && <WinMessage />}
 
 			<Board state={boardState} />
 
 			<Rack />
+			<RackControls />
 			{/* <button onClick={check}>Check</button> */}
-		</>
+		</div>
 	);
 };
 
